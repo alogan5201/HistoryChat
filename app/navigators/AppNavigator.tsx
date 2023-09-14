@@ -39,7 +39,7 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   // 🔥 Your screens go here
-  Chat: { queryIndex?: string; itemIndex?: string; person?: string; imgSource?: any }
+  Chat: { queryIndex?: string; itemIndex?: string; person?: string; imgSource?: any, greetingMessage?: string }
   Test: undefined
   HistoricFigures: undefined
   ChatList: undefined

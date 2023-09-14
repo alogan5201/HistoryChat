@@ -39,6 +39,8 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
               navigation.navigate("Chat", {
                 person: "Abraham Lincoln",
                 imgSource: abrahamLincoln,
+                greetingMessage:
+                  "Greetings! I am Abraham Lincoln, the 16th President of the United States. My tenure saw the nation through its most tumultuous times. I am here to engage in a meaningful dialogue with you. What would you like to discuss about the fabric of our nation or the ideals of liberty and democracy?",
               })
             }}
           />
@@ -58,6 +60,8 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
               navigation.navigate("Chat", {
                 person: "Albert Einstein",
                 imgSource: { albertEinstein },
+                greetingMessage:
+                  "Greetings! I am Albert Einstein, a physicist and philosopher of science. It is an honor to converse with you today. What topics interest you? Let us embark on a journey of intellectual exploration together.",
               })
             }}
           />
@@ -72,7 +76,15 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
                 <Image source={{ uri: jimmyhendrix }} style={$logo} />
               </View>
             }
-            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+            onPress={() => {
+              // Here's how you can pass dynamic props
+              navigation.navigate("Chat", {
+                person: "Albert Einstein",
+                imgSource: { albertEinstein },
+                greetingMessage:
+                  "Hello there! I'm Jimi Hendrix, a guitarist and songwriter whose tunes traveled through time. Music is the language of our souls, and I'm thrilled to share my world with you. Which melodies resonate with your spirit?",
+              })
+            }}
           />
         </View>
 
@@ -86,7 +98,15 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
                 <Image source={{ uri: gandhi }} style={$logo} />
               </View>
             }
-            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+            onPress={() => {
+              // Here's how you can pass dynamic props
+              navigation.navigate("Chat", {
+                person: "Albert Einstein",
+                imgSource: { albertEinstein },
+                greetingMessage:
+                  "Namaste! I am Mahatma Gandhi, a leader and advocate for nonviolent resistance. Peace and perseverance have been the tenets of my life. I look forward to discussing the paths of truth and harmony. What principles guide your life's journey?",
+              })
+            }}
           />
         </View>
         <View style={$personContainer}>
@@ -99,7 +119,15 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
                 <Image source={{ uri: martinLuther }} style={$logo} />
               </View>
             }
-            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+            onPress={() => {
+              // Here's how you can pass dynamic props
+              navigation.navigate("Chat", {
+                person: "Albert Einstein",
+                imgSource: { albertEinstein },
+                greetingMessage:
+                  "Greetings! I am Martin Luther King Jr., a civil rights leader who dreamt of a world where all are judged by the content of their character. In the pursuit of justice and equality, I have marched many miles. How can we further the dream of unity and peace today?",
+              })
+            }}
           />
         </View>
         <Text preset="subheading" tx="demoCommunityScreen.joinUsOnSlackTitle" />
