@@ -5,13 +5,15 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { DemoShowroomScreen, DemoDebugScreen, ChatScreen } from "../screens"
+import { DemoShowroomScreen, DemoDebugScreen, ChatScreen, HistoricFiguresScreen, ChatListScreen } from "../screens"
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
 export type DemoTabParamList = {
-  ChatScreen: undefined
+  HistoricFiguresScreen: undefined
+  ChatScreen: { queryIndex?: string; itemIndex?: string; person?: string, imgSource?: any}
+  ChatListScreen: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
   DemoPodcastList: undefined
@@ -57,24 +59,24 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="ChatScreen"
-        component={ChatScreen}
+        name="HistoricFiguresScreen"
+        component={HistoricFiguresScreen}
         options={{
           tabBarLabel: "Chats",
           tabBarIcon: ({ focused }) => (
-            <Icon icon="chat" color={focused && colors.tint} size={30} />
+            <Icon icon="community" color={focused && colors.tint} size={30} />
           ),
         }}
       />
 
       <Tab.Screen
-        name="DemoPodcastList"
+        name="ChatListScreen"
         component={DemoPodcastListScreen}
         options={{
-          tabBarAccessibilityLabel: translate("demoNavigator.podcastListTab"),
-          tabBarLabel: translate("demoNavigator.podcastListTab"),
+          tabBarAccessibilityLabel: "Chats",
+          tabBarLabel: "Chats",
           tabBarIcon: ({ focused }) => (
-            <Icon icon="podcast" color={focused && colors.tint} size={30} />
+            <Icon icon="chat" color={focused && colors.tint} size={30} />
           ),
         }}
       />

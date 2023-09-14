@@ -39,10 +39,11 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   // 🔥 Your screens go here
-  Chat: undefined
-	Test: undefined
-	HistoricFigures: undefined
-	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
+  Chat: { queryIndex?: string; itemIndex?: string; person?: string; imgSource?: any }
+  Test: undefined
+  HistoricFigures: undefined
+  ChatList: undefined
+  // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
 /**
@@ -89,6 +90,7 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name="Chat" component={Screens.ChatScreen} />
 			<Stack.Screen name="Test" component={Screens.TestScreen} />
 			<Stack.Screen name="HistoricFigures" component={Screens.HistoricFiguresScreen} />
+			<Stack.Screen name="ChatList" component={Screens.ChatListScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

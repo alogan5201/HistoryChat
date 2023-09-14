@@ -6,19 +6,24 @@ import {
   TouchableOpacityProps,
   View,
   ViewStyle,
+  Image,
+  ImageSourcePropType,
+  ImageStyle,
 } from "react-native"
 import { isRTL, translate } from "../i18n"
 import { colors, spacing } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
-
+import {ListItem} from 'app/components'
 export interface HeaderProps {
   /**
    * The layout of the title relative to the action components.
    * - `center` will force the title to always be centered relative to the header. If the title or the action buttons are too long, the title will be cut off.
    * - `flex` will attempt to center the title relative to the action buttons. If the action buttons are different widths, the title will be off-center relative to the header.
    */
+  titleImage?: string
+
   titleMode?: "center" | "flex"
   /**
    * Optional title style override.
@@ -161,6 +166,7 @@ export function Header(props: HeaderProps) {
     rightTxOptions,
     safeAreaEdges = ["top"],
     title,
+    titleImage,
     titleMode = "center",
     titleTx,
     titleTxOptions,
@@ -189,19 +195,17 @@ export function Header(props: HeaderProps) {
         />
 
         {!!titleContent && (
-          <View
-            style={[
-              titleMode === "center" && $titleWrapperCenter,
-              titleMode === "flex" && $titleWrapperFlex,
-              $titleContainerStyleOverride,
-            ]}
-            pointerEvents="none"
-          >
-            <Text
-              weight="medium"
-              size="md"
-              text={titleContent}
-              style={[$title, $titleStyleOverride]}
+          <View>
+            <ListItem
+              TextProps={{ style: $text }}
+              text={title}
+              bottomSeparator
+              LeftComponent={
+                <View style={$logoContainer}>
+                  <Image source={{ uri: titleImage }} style={$logo} />
+                </View>
+              }
+        
             />
           </View>
         )}
@@ -244,7 +248,7 @@ function HeaderAction(props: HeaderActionProps) {
   if (icon) {
     return (
       <Icon
-        size={24}
+        size={32}
         icon={icon}
         color={iconColor}
         onPress={onPress}
@@ -261,7 +265,7 @@ const $wrapper: ViewStyle = {
   height: 56,
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "flex-start",
 }
 
 const $container: ViewStyle = {
@@ -307,8 +311,21 @@ const $titleWrapperCenter: ViewStyle = {
   paddingHorizontal: spacing.xxl,
   zIndex: 1,
 }
-
+const $logoContainer: ViewStyle = {
+  marginEnd: spacing.sm,
+  flexDirection: "row",
+  flexWrap: "wrap",
+  alignContent: "center",
+}
 const $titleWrapperFlex: ViewStyle = {
   justifyContent: "center",
   flexGrow: 1,
+}
+
+const $logo: ImageStyle = {
+  height: 40,
+  width: 40,
+}
+const $text: TextStyle = {
+  fontSize: 16,
 }

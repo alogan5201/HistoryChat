@@ -1,26 +1,217 @@
 import React, { FC } from "react"
-import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
-import { AppStackScreenProps } from "app/navigators"
-import { Screen, Text } from "app/components"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "app/models"
+import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { ListItem, Screen, Text } from "../components"
+import { DemoTabScreenProps } from "../navigators/DemoNavigator"
+import { spacing ,colors} from "../theme"
+import { openLinkInBrowser } from "../utils/openLinkInBrowser"
+import { isRTL } from "../i18n"
+import { AutoImage, AvatarImage } from 'app/components'
+const chainReactLogo = require("../../assets/images/cr-logo.png")
+const reactNativeLiveLogo = require("../../assets/images/rnl-logo.png")
+const reactNativeRadioLogo = require("../../assets/images/rnr-logo.png")
+const reactNativeNewsletterLogo = require("../../assets/images/rnn-logo.png")
+const abrahamLincoln ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FAbrahamLincoln.png?alt=media&token=23b8a337-9eb5-443c-95cf-4244b456c9fa"
+const albertEinstein ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FalbertEinstein.png?alt=media&token=c8340c5f-7efb-4356-9a42-496823d5d717"
+const martinLuther ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FmartinLuther.png?alt=media&token=865b48c3-7575-4c6d-9799-c0a6cf83deb7"
+const jimmyhendrix ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fjimmyhendrix.png?alt=media&token=062a1761-db8b-4e50-8a7c-cda0f29aa0a1"
+const gandhi ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fghandi.png?alt=media&token=2155b043-0167-4a01-a643-366bde653f1c"
 
-interface HistoricFiguresScreenProps extends AppStackScreenProps<"HistoricFigures"> {}
+export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen">> =
+  function HistoricFiguresScreen(_props) {
+      const { navigation } = _props
 
-export const HistoricFiguresScreen: FC<HistoricFiguresScreenProps> = observer(function HistoricFiguresScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+    return (
+      <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
+        <Text preset="heading" text="People" style={$title} />
 
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
-  return (
-    <Screen style={$root} preset="scroll">
-      <Text text="historicFigures" />
-    </Screen>
-  )
-})
+        <View style={$personContainer}>
+          <ListItem
+            TextProps={{ style: $text }}
+            text="Abraham Lincoln"
+            bottomSeparator
+            LeftComponent={
+              <View style={$logoContainer}>
+                <Image source={{ uri: abrahamLincoln }} style={$logo} />
+              </View>
+            }
+            onPress={() => {
+              // Here's how you can pass dynamic props
+              navigation.navigate("Chat", {
+                person: "Abraham Lincoln",
+                imgSource: abrahamLincoln,
+              })
+            }}
+          />
+        </View>
+        <View style={$personContainer}>
+          <ListItem
+            TextProps={{ style: $text }}
+            text="Albert Einstein"
+            bottomSeparator
+            LeftComponent={
+              <View style={$logoContainer}>
+                <Image source={{ uri: albertEinstein }} style={$logo} />
+              </View>
+            }
+            onPress={() => {
+              // Here's how you can pass dynamic props
+              navigation.navigate("Chat", {
+                person: "Albert Einstein",
+                imgSource: { albertEinstein },
+              })
+            }}
+          />
+        </View>
+        <View style={$personContainer}>
+          <ListItem
+            TextProps={{ style: $text }}
+            text="Jimi Hendrix"
+            bottomSeparator
+            LeftComponent={
+              <View style={$logoContainer}>
+                <Image source={{ uri: jimmyhendrix }} style={$logo} />
+              </View>
+            }
+            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+          />
+        </View>
 
-const $root: ViewStyle = {
-  flex: 1,
+        <View style={$personContainer}>
+          <ListItem
+            TextProps={{ style: $text }}
+            text="Mahatma Gandhi"
+            bottomSeparator
+            LeftComponent={
+              <View style={$logoContainer}>
+                <Image source={{ uri: gandhi }} style={$logo} />
+              </View>
+            }
+            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+          />
+        </View>
+        <View style={$personContainer}>
+          <ListItem
+            TextProps={{ style: $text }}
+            text="Martin Luther King Jr."
+            bottomSeparator
+            LeftComponent={
+              <View style={$logoContainer}>
+                <Image source={{ uri: martinLuther }} style={$logo} />
+              </View>
+            }
+            onPress={() => openLinkInBrowser("https://reactnativeradio.com/")}
+          />
+        </View>
+        <Text preset="subheading" tx="demoCommunityScreen.joinUsOnSlackTitle" />
+        <Text tx="demoCommunityScreen.joinUsOnSlack" style={$description} />
+        <ListItem
+          tx="demoCommunityScreen.joinSlackLink"
+          leftIcon="slack"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          onPress={() => openLinkInBrowser("https://community.infinite.red/")}
+        />
+        <Text
+          preset="subheading"
+          tx="demoCommunityScreen.makeIgniteEvenBetterTitle"
+          style={$sectionTitle}
+        />
+        <Text tx="demoCommunityScreen.makeIgniteEvenBetter" style={$description} />
+        <ListItem
+          tx="demoCommunityScreen.contributeToIgniteLink"
+          leftIcon="github"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          onPress={() => openLinkInBrowser("https://github.com/infinitered/ignite")}
+        />
+
+        <Text
+          preset="subheading"
+          tx="demoCommunityScreen.theLatestInReactNativeTitle"
+          style={$sectionTitle}
+        />
+        <Text tx="demoCommunityScreen.theLatestInReactNative" style={$description} />
+
+        <ListItem
+          tx="demoCommunityScreen.reactNativeNewsletterLink"
+          bottomSeparator
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          LeftComponent={
+            <View style={$logoContainer}>
+              <Image source={reactNativeNewsletterLogo} style={$logo} />
+            </View>
+          }
+          onPress={() => openLinkInBrowser("https://reactnativenewsletter.com/")}
+        />
+        <ListItem
+          tx="demoCommunityScreen.reactNativeLiveLink"
+          bottomSeparator
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          LeftComponent={
+            <View style={$logoContainer}>
+              <Image source={reactNativeLiveLogo} style={$logo} />
+            </View>
+          }
+          onPress={() => openLinkInBrowser("https://rn.live/")}
+        />
+        <ListItem
+          tx="demoCommunityScreen.chainReactConferenceLink"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          LeftComponent={
+            <View style={$logoContainer}>
+              <Image source={chainReactLogo} style={$logo} />
+            </View>
+          }
+          onPress={() => openLinkInBrowser("https://cr.infinite.red/")}
+        />
+        <Text preset="subheading" tx="demoCommunityScreen.hireUsTitle" style={$sectionTitle} />
+        <Text tx="demoCommunityScreen.hireUs" style={$description} />
+        <ListItem
+          tx="demoCommunityScreen.hireUsLink"
+          leftIcon="clap"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          onPress={() => openLinkInBrowser("https://infinite.red/contact")}
+        />
+      </Screen>
+    )
+  }
+
+const $container: ViewStyle = {
+  paddingTop: 20,
+  paddingHorizontal: spacing.lg,
+}
+const $personContainer: ViewStyle = {
+  marginBottom: 30
+}
+const $title: TextStyle = {
+  marginBottom: spacing.lg,
+}
+const $text: TextStyle = {
+  fontSize: 20,
+}
+
+const $tagline: TextStyle = {
+  marginBottom: spacing.xxl,
+}
+
+const $description: TextStyle = {
+  marginBottom: spacing.lg,
+}
+
+const $sectionTitle: TextStyle = {
+  marginTop: spacing.xxl,
+}
+
+const $logoContainer: ViewStyle = {
+  marginEnd: spacing.md,
+  flexDirection: "row",
+  flexWrap: "wrap",
+  alignContent: "center",
+}
+
+const $logo: ImageStyle = {
+  height: 100,
+  width: 100,
+}
+
+const $imageContainer: ViewStyle = {
+  alignItems: "center",
 }

@@ -53,8 +53,9 @@ const $divider: ViewStyle = {
 const $line: ViewStyle = {
   backgroundColor: colors.border,
   position: "absolute",
-  left: "50%",
+  left: "20%",
   top: "50%",
+  width: "100%"
 }
 
 // @demo remove-file
