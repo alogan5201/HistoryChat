@@ -8,6 +8,8 @@ import { Chat, MessageType } from "@flyerhq/react-native-chat-ui"
 import { spacing } from "../theme"
 import { useNavigation, useRoute, Link, RouteProp } from "@react-navigation/native"
 import { AppStackParamList, AppStackScreenProps } from "app/navigators/AppNavigator"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+
 export interface ChatScreenProps {
   /**
    * An optional style override useful for padding & margin.
@@ -53,20 +55,17 @@ export const ChatScreen = observer(function ChatScreen(props: ChatScreenProps) {
         }
       }, [route])
   return (
-    <>
+    <SafeAreaProvider>
       <Wallpaper />
-      <View >
       <Header
         title={paramState ? paramState.person : ""}
         titleImage={paramState ? paramState.imgSource : null}
         leftIcon="caretLeft"
-        safeAreaEdges={[]}
+      
         onLeftPress={goBack}
       />
-
-      </View>
       <Chat messages={messages} onSendPress={handleSendPress} user={user} />
-    </>
+    </SafeAreaProvider>
   )
 })
 const FULL: ViewStyle = { flex: 1 }
