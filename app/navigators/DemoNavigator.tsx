@@ -9,7 +9,8 @@ import { DemoShowroomScreen, DemoDebugScreen, ChatScreen, HistoricFiguresScreen,
 import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
-
+import Config from "react-native-config"
+import {nodeEnv} from "app/environment"
 export type DemoTabParamList = {
   HistoricFiguresScreen: undefined
   ChatScreen: { queryIndex?: string; itemIndex?: string; person?: string, imgSource?: any}
@@ -33,7 +34,9 @@ const Tab = createBottomTabNavigator<DemoTabParamList>()
 
 export function DemoNavigator() {
   const { bottom } = useSafeAreaInsets()
-
+React.useEffect(() => {
+  console.tron.log(nodeEnv)
+}, []);
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -47,16 +50,18 @@ export function DemoNavigator() {
         tabBarItemStyle: $tabBarItem,
       })}
     >
-      <Tab.Screen
-        name="DemoShowroom"
-        component={DemoShowroomScreen}
-        options={{
-          tabBarLabel: translate("demoNavigator.componentsTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="components" color={focused && colors.tint} size={30} />
-          ),
-        }}
-      />
+      {nodeEnv === "development" && (
+        <Tab.Screen
+          name="DemoShowroom"
+          component={DemoShowroomScreen}
+          options={{
+            tabBarLabel: translate("demoNavigator.componentsTab"),
+            tabBarIcon: ({ focused }) => (
+              <Icon icon="components" color={focused && colors.tint} size={30} />
+            ),
+          }}
+        />
+      )}
 
       <Tab.Screen
         name="HistoricFiguresScreen"
@@ -74,6 +79,8 @@ export function DemoNavigator() {
         component={DemoPodcastListScreen}
         options={{
           tabBarAccessibilityLabel: "Chats",
+          tabBarActiveBackgroundColor: "transparent",
+          tabBarInactiveBackgroundColor: "transparent",
           tabBarLabel: "Chats",
           tabBarIcon: ({ focused }) => (
             <Icon icon="chat" color={focused && colors.tint} size={30} />
@@ -85,9 +92,9 @@ export function DemoNavigator() {
         name="DemoDebug"
         component={DemoDebugScreen}
         options={{
-          tabBarLabel: translate("demoNavigator.debugTab"),
+          tabBarLabel: "Settings",
           tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused && colors.tint} size={30} />
+            <Icon icon="settings" color={focused && colors.tint} size={30} />
           ),
         }}
       />

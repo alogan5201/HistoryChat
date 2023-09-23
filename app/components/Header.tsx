@@ -15,14 +15,30 @@ import { colors, spacing } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
-import {ListItem} from 'app/components'
+import { ListItem } from 'app/components'
+const imageSources = {
+  abrahamLincoln:
+    "https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FAbrahamLincoln.png?alt=media&token=23b8a337-9eb5-443c-95cf-4244b456c9fa",
+  albertEinstein:
+    "https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FalbertEinstein.png?alt=media&token=c8340c5f-7efb-4356-9a42-496823d5d717",
+  martinLuther:
+    "https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FmartinLuther.png?alt=media&token=865b48c3-7575-4c6d-9799-c0a6cf83deb7",
+  jimmyhendrix:
+    "https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fjimmyhendrix.png?alt=media&token=062a1761-db8b-4e50-8a7c-cda0f29aa0a1",
+  gandhi:
+    "https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fghandi.png?alt=media&token=2155b043-0167-4a01-a643-366bde653f1c",
+}
+const prefetchImages = async () => {
+  const prefetches = Object.values(imageSources).map((src) => Image.prefetch(src))
+  await Promise.all(prefetches)
+}
 export interface HeaderProps {
   /**
    * The layout of the title relative to the action components.
    * - `center` will force the title to always be centered relative to the header. If the title or the action buttons are too long, the title will be cut off.
    * - `flex` will attempt to center the title relative to the action buttons. If the action buttons are different widths, the title will be off-center relative to the header.
    */
-  titleImage?: string
+  titleImage?: any
 
   titleMode?: "center" | "flex"
   /**
@@ -199,13 +215,12 @@ export function Header(props: HeaderProps) {
             <ListItem
               TextProps={{ style: $text }}
               text={title}
-              bottomSeparator
+             
               LeftComponent={
                 <View style={$logoContainer}>
-                  <Image source={{ uri: titleImage }} style={$logo} />
+                  <Image source={titleImage} style={$logo} />
                 </View>
               }
-        
             />
           </View>
         )}
@@ -265,7 +280,7 @@ const $wrapper: ViewStyle = {
   height: 56,
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "flex-start",
+  justifyContent: "space-between",
 }
 
 const $container: ViewStyle = {

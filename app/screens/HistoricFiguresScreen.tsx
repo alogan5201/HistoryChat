@@ -6,19 +6,35 @@ import { spacing ,colors} from "../theme"
 import { openLinkInBrowser } from "../utils/openLinkInBrowser"
 import { isRTL } from "../i18n"
 import { AutoImage, AvatarImage } from 'app/components'
+import { Asset } from "expo-asset"
+
 const chainReactLogo = require("../../assets/images/cr-logo.png")
 const reactNativeLiveLogo = require("../../assets/images/rnl-logo.png")
 const reactNativeRadioLogo = require("../../assets/images/rnr-logo.png")
 const reactNativeNewsletterLogo = require("../../assets/images/rnn-logo.png")
-const abrahamLincoln ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FAbrahamLincoln.png?alt=media&token=23b8a337-9eb5-443c-95cf-4244b456c9fa"
-const albertEinstein ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FalbertEinstein.png?alt=media&token=c8340c5f-7efb-4356-9a42-496823d5d717"
-const martinLuther ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2FmartinLuther.png?alt=media&token=865b48c3-7575-4c6d-9799-c0a6cf83deb7"
-const jimmyhendrix ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fjimmyhendrix.png?alt=media&token=062a1761-db8b-4e50-8a7c-cda0f29aa0a1"
-const gandhi ="https://firebasestorage.googleapis.com/v0/b/geotools-bc75a.appspot.com/o/images%2Fchatgpt-app%2Fghandi.png?alt=media&token=2155b043-0167-4a01-a643-366bde653f1c"
+const abrahamLincoln = require("../../assets/images/AbrahamLincoln.png")
+
+const albertEinstein = require("../../assets/images/albertEinstein.png")
+const martinLuther = require("../../assets/images/martinLuther.png")
+const jimmyhendrix = require("../../assets/images/jimmyhendrix.png")
+const gandhi = require("../../assets/images/ghandi.png")
+
+
 
 export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen">> =
   function HistoricFiguresScreen(_props) {
       const { navigation } = _props
+  const handlePress = async (person, imgSource, greetingMessage) => {
+    // Preload image(s) for the next screen
+    await Asset.fromURI(imgSource).downloadAsync()
+    // Navigate after preloading
+        navigation.navigate("Chat", {
+                person: "Abraham Lincoln",
+                imgSource: abrahamLincoln,
+                greetingMessage:
+                  "Greetings! I am Abraham Lincoln, the 16th President of the United States. My tenure saw the nation through its most tumultuous times. I am here to engage in a meaningful dialogue with you. What would you like to discuss about the fabric of our nation or the ideals of liberty and democracy?",
+              })
+  }
 
     return (
       <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
@@ -31,7 +47,7 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
             bottomSeparator
             LeftComponent={
               <View style={$logoContainer}>
-                <Image source={{ uri: abrahamLincoln }} style={$logo} />
+                <Image source={abrahamLincoln} style={$logo} />
               </View>
             }
             onPress={() => {
@@ -52,14 +68,14 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
             bottomSeparator
             LeftComponent={
               <View style={$logoContainer}>
-                <Image source={{ uri: albertEinstein }} style={$logo} />
+                <Image source={albertEinstein} style={$logo} />
               </View>
             }
             onPress={() => {
               // Here's how you can pass dynamic props
               navigation.navigate("Chat", {
                 person: "Albert Einstein",
-                imgSource: { albertEinstein },
+                imgSource: albertEinstein,
                 greetingMessage:
                   "Greetings! I am Albert Einstein, a physicist and philosopher of science. It is an honor to converse with you today. What topics interest you? Let us embark on a journey of intellectual exploration together.",
               })
@@ -73,14 +89,14 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
             bottomSeparator
             LeftComponent={
               <View style={$logoContainer}>
-                <Image source={{ uri: jimmyhendrix }} style={$logo} />
+                <Image source={jimmyhendrix} style={$logo} />
               </View>
             }
             onPress={() => {
               // Here's how you can pass dynamic props
               navigation.navigate("Chat", {
-                person: "Albert Einstein",
-                imgSource: { albertEinstein },
+                person: "Jimi Hendrix",
+                imgSource: jimmyhendrix,
                 greetingMessage:
                   "Hello there! I'm Jimi Hendrix, a guitarist and songwriter whose tunes traveled through time. Music is the language of our souls, and I'm thrilled to share my world with you. Which melodies resonate with your spirit?",
               })
@@ -95,14 +111,14 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
             bottomSeparator
             LeftComponent={
               <View style={$logoContainer}>
-                <Image source={{ uri: gandhi }} style={$logo} />
+                <Image source={gandhi} style={$logo} />
               </View>
             }
             onPress={() => {
               // Here's how you can pass dynamic props
               navigation.navigate("Chat", {
-                person: "Albert Einstein",
-                imgSource: { albertEinstein },
+                person: "Mahatma Gandhi",
+                imgSource: gandhi,
                 greetingMessage:
                   "Namaste! I am Mahatma Gandhi, a leader and advocate for nonviolent resistance. Peace and perseverance have been the tenets of my life. I look forward to discussing the paths of truth and harmony. What principles guide your life's journey?",
               })
@@ -116,14 +132,14 @@ export const HistoricFiguresScreen: FC<DemoTabScreenProps<"HistoricFiguresScreen
             bottomSeparator
             LeftComponent={
               <View style={$logoContainer}>
-                <Image source={{ uri: martinLuther }} style={$logo} />
+                <Image source={martinLuther} style={$logo} />
               </View>
             }
             onPress={() => {
               // Here's how you can pass dynamic props
               navigation.navigate("Chat", {
-                person: "Albert Einstein",
-                imgSource: { albertEinstein },
+                person: "Martin Luther King Jr.",
+                imgSource: martinLuther,
                 greetingMessage:
                   "Greetings! I am Martin Luther King Jr., a civil rights leader who dreamt of a world where all are judged by the content of their character. In the pursuit of justice and equality, I have marched many miles. How can we further the dream of unity and peace today?",
               })

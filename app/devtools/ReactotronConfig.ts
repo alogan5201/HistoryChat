@@ -13,6 +13,7 @@ import { clear } from "app/utils/storage"
 import { goBack, resetRoot, navigate } from "app/navigators/navigationUtilities"
 
 import { Reactotron } from "./ReactotronClient"
+import { openInEditor } from "reactotron-react-native"
 
 Reactotron.configure({
   name: require("../../package.json").name,
@@ -29,6 +30,7 @@ Reactotron.use(
     filter: (event) => /postProcessSnapshot|@APPLY_SNAPSHOT/.test(event.name) === false,
   }),
 )
+Reactotron.use(openInEditor())
 
 if (Platform.OS !== "web") {
   Reactotron.setAsyncStorageHandler(AsyncStorage)

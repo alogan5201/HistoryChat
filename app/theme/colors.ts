@@ -35,6 +35,10 @@ const palette = {
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
+
+  alt100: "#101223",
+  alt200: "#232539",
+  alt300: "#3AA0FF",
 } as const
 
 export const colors = {
@@ -51,7 +55,7 @@ export const colors = {
   /**
    * The default text color in many components.
    */
-  text: palette.neutral800,
+  text: palette.neutral100,
   /**
    * Secondary text information.
    */
@@ -59,7 +63,7 @@ export const colors = {
   /**
    * The default color of the screen background.
    */
-  background: palette.neutral200,
+  background: palette.alt100,
   /**
    * The default border color.
    */
@@ -67,11 +71,11 @@ export const colors = {
   /**
    * The main tinting color.
    */
-  tint: palette.primary500,
+  tint: palette.alt300,
   /**
    * A subtle color used for lines.
    */
-  separator: palette.neutral300,
+  separator: palette.alt200,
   /**
    * Error messages.
    */

@@ -3,12 +3,13 @@ import { StyleProp, TextStyle, View, ViewStyle, Image, ImageStyle } from "react-
 import { observer } from "mobx-react-lite"
 import { colors, typography } from "app/theme"
 import { Screen, Wallpaper, Header } from "../components"
-import { Chat, MessageType } from "@flyerhq/react-native-chat-ui"
+import { Chat, MessageType, defaultTheme } from "@flyerhq/react-native-chat-ui"
 import { spacing } from "../theme"
 import { useNavigation, useRoute, Link, RouteProp } from "@react-navigation/native"
 import { AppStackParamList, AppStackScreenProps } from "app/navigators/AppNavigator"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { set } from "date-fns"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export interface ChatScreenProps {
   /**
@@ -37,13 +38,48 @@ export const ChatScreen = observer(function ChatScreen(props: ChatScreenProps) {
   const otherUser = { id: "06c33e5b-e835-4732-80f4-63f44b46666c" }
   const navigation = useNavigation()
       const route = useRoute<RouteProp<AppStackParamList, "Chat">>()
-      const params = route.params
+  const params = route.params
+  
+    const [storedValue, setStoredValue] = React.useState("")
+const toCamelCase = (str) =>
+  str.trim().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""))
+
+
+
+    const storeData = async (value) => {
+      try {
+        if (params.person) {
+          const key = toCamelCase(params.person)
+          await AsyncStorage.setItem(key, value)
+          setStoredValue(value)
+          
+        }
+      } catch (e) {
+        // saving error
+        console.error(e)
+      }
+    }
+
+    const getData = async () => {
+      try {
+          const key = params.person ? toCamelCase(params.person) : ''
+
+        const value = await AsyncStorage.getItem(key)
+        if (value !== null) {
+          setStoredValue(value)
+        }
+      } catch (e) {
+        // error reading value
+        console.error(e)
+      }
+    }
   const goBack = () => navigation.goBack()
   const addMessage = (message: MessageType.Any) => {
     setMessages([message, ...messages])
   }
 
   const sendChatGptResponse = (message: MessageType.PartialText) => {
+    storeData('true')
     const textMessage: MessageType.Text = {
       author: otherUser,
       createdAt: Date.now(),
@@ -101,13 +137,21 @@ setUserQuestion(message.text)
 }, [userQuestion]);
 React.useEffect(() => {
   const fetchData = async () => {
-    if (route.params) {
+    if (route && route.params) {
       if (params.person && params.imgSource) {
-         // Added type: 'text'
-             sendChatGptResponse({ text: params.greetingMessage, type: "text" })
+        // Added type: 'text'
+        const key = params.person ? toCamelCase(params.person) : ""
+
+              const value = await AsyncStorage.getItem(key)
+        if (messages) {
+            console.tron.log("🚀 ~ fetchData ~ messages:", messages)
+            
+           }
+        sendChatGptResponse({ text: params.greetingMessage, type: "text" })
+           
 
         console.tron.log(params.imgSource.toString())
-        setParamState({ person: params.person, imgSource: params.imgSource.toString() })
+        setParamState({ person: params.person, imgSource: params.imgSource })
 
     
       }
@@ -115,18 +159,33 @@ React.useEffect(() => {
   }
 
   fetchData()
-}, [route])
+}, [])
   return (
     <SafeAreaProvider>
-      <Wallpaper />
       <Header
         title={paramState ? paramState.person : ""}
         titleImage={paramState ? paramState.imgSource : null}
         leftIcon="caretLeft"
-      
+        rightIcon="verticalDots"
         onLeftPress={goBack}
       />
-      <Chat messages={messages} onSendPress={handleSendPress} user={user} />
+      <Chat
+        messages={messages}
+        onSendPress={handleSendPress}
+        user={user}
+        theme={{
+          ...defaultTheme,
+          colors: {
+            ...defaultTheme.colors,
+            inputBackground: "#232539",
+            inputText: "#FFFFFF",
+            background: "#101223",
+            primary: "#3AA0FF",
+            sentMessageDocumentIcon: "red",
+            receivedMessageDocumentIcon: "red",
+          },
+        }}
+      />
     </SafeAreaProvider>
   )
 })

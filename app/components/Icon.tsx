@@ -91,7 +91,7 @@ export const iconRegistry = {
   caretRight: require("../../assets/icons/caretRight.png"),
   check: require("../../assets/icons/check.png"),
   clap: require("../../assets/icons/clap.png"),
-  community: require("../../assets/icons/community.png"),
+  community: require("../../assets/icons/chart.png"),
   components: require("../../assets/icons/components.png"),
   debug: require("../../assets/icons/debug.png"),
   github: require("../../assets/icons/github.png"),
@@ -108,6 +108,7 @@ export const iconRegistry = {
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
   chat: require("../../assets/icons/chat.png"),
+  verticalDots: require("../../assets/icons/verticalDots.png"),
 }
 
 const $imageStyle: ImageStyle = {
