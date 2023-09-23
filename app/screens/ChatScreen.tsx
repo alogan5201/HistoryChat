@@ -12,7 +12,7 @@ import { set } from "date-fns"
 
 export interface ChatScreenProps {
   /**
-   * An optional style override useful for padding & margin.
+   * An optional style override useful for padding & margin
    */
   style?: StyleProp<ViewStyle>
 }
