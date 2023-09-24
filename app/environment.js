@@ -1,1 +1,1 @@
-export const nodeEnv = 'development'
+export const nodeEnv = 'production'

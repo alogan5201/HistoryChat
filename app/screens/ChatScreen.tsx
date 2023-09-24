@@ -175,12 +175,17 @@ React.useEffect(() => {
         user={user}
         theme={{
           ...defaultTheme,
+          fonts: {
+            ...defaultTheme.fonts,
+            receivedMessageBodyTextStyle: { ...defaultTheme.fonts.receivedMessageBodyTextStyle, color: "#FFFFFF" },
+          },
           colors: {
             ...defaultTheme.colors,
             inputBackground: "#232539",
             inputText: "#FFFFFF",
             background: "#101223",
             primary: "#3AA0FF",
+            secondary: "#232539",
             sentMessageDocumentIcon: "red",
             receivedMessageDocumentIcon: "red",
           },
